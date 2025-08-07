@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapikids - L'app qui localise les aires de jeux pour vos enfants</title>
+    <meta name="description" content="Trouvez instantanément les aires de jeux les plus proches. Plus de 40 000 aires référencées en France. Téléchargez Mapikids sur l'App Store.">
+    <meta property="og:title" content="Mapikids - L'app des aires de jeux">
+    <meta property="og:description" content="Localisez instantanément les aires de jeux proches de vous. Application gratuite sur iOS.">
+    <meta property="og:image" content="https://mapikids.app/og-image.png">
+    <meta property="og:url" content="https://mapikids.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mapikids-green: #37ad6b;
+            --mapikids-yellow: #f8b251;
+            --mapikids-black: #0c1f2c;
+            --mapikids-light-green: #91d15e;
+            --mapikids-red: #f03a2a;
+            --mapikids-turquoise: #20b1b9;
+            --gradient-primary: linear-gradient(135deg, var(--mapikids-turquoise), var(--mapikids-yellow));
+            --gradient-secondary: linear-gradient(135deg, var(--mapikids-yellow), var(--mapikids-turquoise));
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--mapikids-black);
+            overflow-x: hidden;
+            background: linear-gradient(to bottom, #fff8f0, #ffffff);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--mapikids-black);
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--mapikids-turquoise);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--mapikids-black);
+            margin-bottom: 2rem;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--mapikids-yellow);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(248, 178, 81, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(248, 178, 81, 0.4);
+        }
+
+        /* Bouton Découvrir en commentaire pour l'instant
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--mapikids-red);
+            text-decoration: none;
+            border: 2px solid var(--mapikids-red);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--mapikids-red);
+            color: white;
+            transform: translateY(-3px);
+        }
+        */
+
+        .hero-image {
+            position: relative;
+            animation: slideInUp 0.8s ease-out 0.6s both;
+        }
+
+        .phone-mockup {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+            background: var(--mapikids-black);
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 650px;
+            border-radius: 30px;
+            overflow: hidden;
+            background: white;
+            position: relative;
+        }
+
+        .screenshot-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .screenshot-carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center -50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .screenshot-carousel img.active {
+            opacity: 1;
+        }
+
+        .phone-mockup:hover {
+            transform: scale(1.05) rotate(2deg);
+            transition: transform 0.3s;
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--mapikids-turquoise);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: var(--mapikids-black);
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff, #fffaf0);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(248, 178, 81, 0.2);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(248, 178, 81, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--mapikids-yellow);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(248, 178, 81, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--mapikids-black);
+        }
+
+        .feature-card p {
+            color: var(--mapikids-black);
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--mapikids-turquoise);
+            color: white;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon {
+            padding: 5rem 2rem;
+            background: #fff8f0;
+        }
+
+        .roadmap {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .roadmap-item {
+            display: flex;
+            gap: 2rem;
+            align-items: start;
+            opacity: 0;
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .roadmap-item:nth-child(1) { animation-delay: 0.1s; }
+        .roadmap-item:nth-child(2) { animation-delay: 0.2s; }
+        .roadmap-item:nth-child(3) { animation-delay: 0.3s; }
+        .roadmap-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .roadmap-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(248, 178, 81, 0.2);
+            flex-shrink: 0;
+            border: 2px solid var(--mapikids-yellow);
+        }
+
+        .roadmap-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--mapikids-black);
+        }
+
+        .roadmap-content p {
+            color: var(--mapikids-black);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--mapikids-black);
+            color: white;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-links {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-links a {
+            color: var(--mapikids-yellow);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--mapikids-red);
+        }
+
+        /* Modal Mentions Légales */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(12,31,44,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            margin: 2rem;
+            animation: slideInUp 0.3s;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--mapikids-yellow);
+        }
+
+        .modal-header h2 {
+            color: var(--mapikids-black);
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--mapikids-red);
+            transition: transform 0.3s;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body h3 {
+            color: var(--mapikids-black);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-body p {
+            color: var(--mapikids-black);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Decorative Elements */
+        .decoration-1 {
+            position: absolute;
+            top: 10%;
+            right: -100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--mapikids-yellow), transparent);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .decoration-2 {
+            position: absolute;
+            bottom: 10%;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--mapikids-red), transparent);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 5s ease-in-out infinite reverse;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="mapikids-logo-txt.png" alt="Mapikids" class="logo-img">
+            </a>
+            <a href="#download" class="btn-primary">
+                <svg width="20" height="24" viewBox="0 0 384 512" fill="white">
+                    <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+                </svg>
+                Télécharger
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="decoration-1"></div>
+        <div class="decoration-2"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>L'application qui localise les aires de jeux pour vos enfants</h1>
+                <p>Plus de 40 000 aires référencées partout en France. Trouvez instantanément l'aire de jeux la plus proche, découvrez ses équipements et contribuez à enrichir la base de données.</p>
+                <div class="cta-buttons">
+                    <a href="https://apps.apple.com/app/mapikids" class="btn-primary" id="download">
+                        <span class="material-icons" style="font-size: 24px; color: white;">file_download</span>
+                        Télécharger sur l'App Store
+                    </a>
+                    <!-- Bouton Découvrir commenté pour l'instant
+                    <a href="#features" class="btn-secondary">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polygon points="10 8 16 12 10 16 10 8"/>
+                        </svg>
+                        Découvrir
+                    </a>
+                    -->
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="phone-mockup animate-float">
+                    <div class="phone-screen">
+                        <div class="screenshot-carousel">
+                            <img src="mapikids-screen-map.png" alt="Carte des aires de jeux Mapikids" class="active" />
+                            <img src="mapikids-screen-details.png" alt="Détails d'une aire de jeux Mapikids" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2 class="section-title">Fonctionnalités clés</h2>
+            <p class="section-subtitle">Tout ce qu'il faut pour trouver l'aire de jeux parfaite</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons" style="font-size: 32px; color: white;">location_on</span>
+                    </div>
+                    <h3>Géolocalisation</h3>
+                    <p>Localisez instantanément les aires de jeux autour de vous. La carte s'adapte automatiquement à votre position.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons" style="font-size: 32px; color: white;">toys</span>
+                    </div>
+                    <h3>Équipements détaillés</h3>
+                    <p>Consultez la liste complète des jeux disponibles : toboggan, balançoire, tourniquet, et plus de 30 autres équipements.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons" style="font-size: 32px; color: white;">lock_open</span>
+                    </div>
+                    <h3>Sans inscription</h3>
+                    <p>Respect total de votre vie privée. Aucune inscription requise, aucune donnée personnelle collectée.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons" style="font-size: 32px; color: white;">group</span>
+                    </div>
+                    <h3>Contribution communautaire</h3>
+                    <p>Enrichissez les fiches en ajoutant des informations sur les équipements, l'âge recommandé, les services disponibles.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons" style="font-size: 32px; color: white;">photo_camera</span>
+                    </div>
+                    <h3>Galerie photos</h3>
+                    <p>Partagez et consultez les photos des aires de jeux pour mieux les découvrir avant de vous y rendre.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons" style="font-size: 32px; color: white;">star</span>
+                    </div>
+                    <h3>Notes et avis</h3>
+                    <p>Évaluez les aires de jeux et consultez les avis de la communauté pour faire le meilleur choix.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">40 000+</div>
+                <div class="stat-label">Aires référencées</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">96</div>
+                <div class="stat-label">Départements couverts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Gratuit</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon -->
+    <section class="coming-soon">
+        <div class="features-container">
+            <h2 class="section-title">À venir</h2>
+            <p class="section-subtitle">Nous travaillons sur de nouvelles fonctionnalités</p>
+            
+            <div class="roadmap">
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">filter_list</span>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Filtres de recherche avancés</h3>
+                        <p>Nous attendons que la base de données s'enrichisse davantage avant d'implémenter des filtres par âge, équipements spécifiques, accessibilité PMR, etc.</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">search</span>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Recherche par adresse</h3>
+                        <p>Trouvez des aires de jeux près d'une adresse spécifique, pratique pour planifier vos sorties à l'avance.</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">public</span>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Nouveaux pays</h3>
+                        <p>Extension de la couverture à d'autres pays européens pour vous accompagner même en vacances.</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">translate</span>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Traduction en anglais</h3>
+                        <p>Version anglaise de l'application pour la rendre accessible à un public international.</p>
+                    </div>
+                </div>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon">
+                        <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">android</span>
+                    </div>
+                    <div class="roadmap-content">
+                        <h3>Version Android</h3>
+                        <p>Une version pour les utilisateurs Android est prévue pour rendre Mapikids accessible à tous les parents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Mapikids</h3>
+            <p style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                Développé à Franconville
+                <svg width="20" height="22" viewBox="0 0 600 660" style="fill: white; opacity: 0.8;">
+                    <path d="M 300,658.5 C 300,658.5 598.5,546.18 598.5,260.73 C 598.5,-24.72 598.5,2.18 598.5,2.18 L 1.5,2.18 L 1.5,260.73 C 1.5,546.18 300,658.5 300,658.5 z" fill="#e20909"/>
+                    <path d="M 159.75,2.19 L 573.25,397.72 C 588.95,357.37 598.5,311.81 598.5,260.72 C 598.5,-24.73 598.5,2.19 598.5,2.19 L 159.75,2.19 z" fill="#2b5df2"/>
+                    <path d="M 1.5,2.19 L 1.5,156.63 L 439.03,575.16 C 490.25,533.54 543.08,475.23 573.25,397.72 L 159.75,2.19 L 1.5,2.19 z" fill="white"/>
+                </svg>
+                avec
+                <span class="material-icons" style="font-size: 20px; color: var(--mapikids-red);">favorite</span>
+                pour les familles
+                <span class="material-icons" style="font-size: 24px; color: var(--mapikids-green); opacity: 0.8;">family_restroom</span>
+            </p>
+            
+            <div class="footer-links">
+                <p style="margin-bottom: 0.5rem;">© 2025 Mapikids - Tous droits réservés</p>
+                <p style="margin-top: 0.5rem;">
+                    <a href="#" onclick="showMentions(); return false;">Mentions légales</a>
+                    <span style="margin: 0 0.5rem;">|</span>
+                    <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap Contributors</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Mentions Légales -->
+    <div id="mentionsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Mentions légales</h2>
+                <button class="close-modal" onclick="closeMentions()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Éditeur de l'application</h3>
+                <p>
+                    Mapikids<br>
+                    Application mobile éditée par un particulier
+                </p>
+
+                <h3>Hébergement</h3>
+                <p>
+                    Site web hébergé par GitHub Pages<br>
+                    GitHub, Inc.<br>
+                    88 Colin P Kelly Jr St<br>
+                    San Francisco, CA 94107<br>
+                    États-Unis
+                </p>
+
+                <h3>Données cartographiques</h3>
+                <p>
+                    Les données des aires de jeux proviennent d'OpenStreetMap®,<br>
+                    un ensemble de données ouvertes, disponibles sous la licence<br>
+                    Open Database License (ODbL) par la Fondation OpenStreetMap (OSMF).
+                </p>
+
+                <h3>Protection des données</h3>
+                <p>
+                    L'application Mapikids respecte votre vie privée :<br>
+                    • Aucune inscription requise<br>
+                    • Aucune donnée personnelle collectée<br>
+                    • La géolocalisation reste sur votre appareil<br>
+                    • Aucun cookie de tracking
+                </p>
+
+                <h3>Propriété intellectuelle</h3>
+                <p>
+                    L'ensemble du contenu de l'application Mapikids (logo, design, interface)<br>
+                    est protégé par le droit d'auteur. Toute reproduction est interdite sans autorisation.
+                </p>
+
+                <h3>Responsabilité</h3>
+                <p>
+                    Les informations sur les aires de jeux sont fournies à titre indicatif.<br>
+                    Mapikids ne peut garantir l'exactitude ou l'exhaustivité des informations.<br>
+                    Les utilisateurs restent responsables de vérifier sur place l'état et la sécurité des installations.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('onclick')) return; // Skip if has onclick
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Modal functions
+        function showMentions() {
+            document.getElementById('mentionsModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMentions() {
+            document.getElementById('mentionsModal').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on outside click
+        document.getElementById('mentionsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMentions();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMentions();
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Dynamic year in footer
+        const year = new Date().getFullYear();
+        const footerText = document.querySelector('.footer-links span');
+        if (footerText) {
+            footerText.innerHTML = footerText.innerHTML.replace('2025', year);
+        }
+
+        // Screenshot carousel fade animation
+        function initScreenshotCarousel() {
+            const images = document.querySelectorAll('.screenshot-carousel img');
+            let currentIndex = 0;
+            
+            if (images.length > 1) {
+                setInterval(() => {
+                    // Remove active class from current image
+                    images[currentIndex].classList.remove('active');
+                    
+                    // Move to next image
+                    currentIndex = (currentIndex + 1) % images.length;
+                    
+                    // Add active class to new image
+                    images[currentIndex].classList.add('active');
+                }, 4000); // Change every 4 seconds
+            }
+        }
+
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', initScreenshotCarousel);
+    </script>
+</body>
+</html>
