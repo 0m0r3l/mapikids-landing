@@ -134,6 +134,10 @@
             animation: slideInUp 0.8s ease-out 0.4s both;
         }
 
+        .cta-buttons > * {
+            min-width: 280px;
+        }
+
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -147,11 +151,30 @@
             font-size: 1.1rem;
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 10px 30px rgba(248, 178, 81, 0.3);
+            width: 320px;
+            white-space: nowrap;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(248, 178, 81, 0.4);
+        }
+
+        .btn-coming-soon {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: rgba(248, 178, 81, 0.3);
+            color: rgba(248, 178, 81, 0.8);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: not-allowed;
+            opacity: 0.8;
+            border: 2px solid rgba(248, 178, 81, 0.4);
+            width: 320px;
+            white-space: nowrap;
         }
 
         /* Bouton Découvrir en commentaire pour l'instant
@@ -213,7 +236,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center -50px;
+            object-position: center -45px;
             position: absolute;
             top: 0;
             left: 0;
@@ -325,6 +348,7 @@
             font-size: 3rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
+            white-space: nowrap;
         }
 
         .stat-label {
@@ -479,12 +503,38 @@
             color: var(--mapikids-black);
             margin-top: 1.5rem;
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-body h3::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--mapikids-yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         .modal-body p {
             color: var(--mapikids-black);
             line-height: 1.6;
             margin-bottom: 1rem;
+        }
+
+        .modal-body a {
+            color: var(--mapikids-turquoise);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .modal-body a:hover {
+            color: var(--mapikids-yellow);
+            border-bottom-color: var(--mapikids-yellow);
+            transform: translateY(-1px);
         }
 
         /* Decorative Elements */
@@ -513,6 +563,34 @@
         }
 
         /* Responsive */
+        @media (max-width: 768px) {
+            .screenshot-carousel img {
+                object-position: center -10px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .footer-links {
+                font-size: 0.9rem;
+            }
+            
+            .footer-links a {
+                margin: 0 0.25rem;
+            }
+            
+            .footer-links > p:last-child {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .footer-links > p:last-child span[style*="margin"] {
+                display: none;
+            }
+            
         @media (max-width: 768px) {
             .hero-container {
                 grid-template-columns: 1fr;
@@ -564,9 +642,15 @@
                 <p>Plus de 40 000 aires référencées partout en France. Trouvez instantanément l'aire de jeux la plus proche, découvrez ses équipements et contribuez à enrichir la base de données.</p>
                 <div class="cta-buttons">
                     <a href="https://apps.apple.com/app/mapikids" class="btn-primary" id="download">
-                        <span class="material-icons" style="font-size: 24px; color: white;">file_download</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
                         Télécharger sur l'App Store
                     </a>
+                    <div class="btn-coming-soon">
+                        <span class="material-icons" style="font-size: 24px; color: rgba(248, 178, 81, 0.7);">android</span>
+                        Bientôt sur le Play Store
+                    </div>
                     <!-- Bouton Découvrir commenté pour l'instant
                     <a href="#features" class="btn-secondary">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -584,6 +668,9 @@
                         <div class="screenshot-carousel">
                             <img src="mapikids-screen-map.png" alt="Carte des aires de jeux Mapikids" class="active" />
                             <img src="mapikids-screen-details.png" alt="Détails d'une aire de jeux Mapikids" />
+                            <img src="mapikids-screen-photos.png" alt="Album photos d'une aire de jeux Mapikids" />
+                            <img src="mapikids-screen-characteristics.png" alt="Caractéristiques détaillés d'une aire de jeux Mapikids" />
+                            <img src="mapikids-screen-photos-upload.png" alt="Envoyez vos photos d'une aire de jeux Mapikids" />
                         </div>
                     </div>
                 </div>
@@ -763,10 +850,10 @@
                 <button class="close-modal" onclick="closeMentions()">&times;</button>
             </div>
             <div class="modal-body">
-                <h3>Éditeur de l'application</h3>
+                <h3>Éditeur</h3>
                 <p>
                     Mapikids<br>
-                    Application mobile éditée par un particulier
+                    Application mobile et site web édités par un particulier
                 </p>
 
                 <h3>Hébergement</h3>
@@ -778,11 +865,31 @@
                     États-Unis
                 </p>
 
-                <h3>Données cartographiques</h3>
+                <h3>Données cartographiques - Attribution</h3>
                 <p>
+                    © Contributeurs OpenStreetMap<br>
                     Les données des aires de jeux proviennent d'OpenStreetMap®,<br>
-                    un ensemble de données ouvertes, disponibles sous la licence<br>
-                    Open Database License (ODbL) par la Fondation OpenStreetMap (OSMF).
+                    disponibles sous la licence Open Database License (ODbL)<br>
+                    par la Fondation OpenStreetMap (OSMF).<br>
+                    <br>
+                    Plus d'informations sur :<br>
+                    • <a href="https://www.openstreetmap.org/copyright" target="_blank">www.openstreetmap.org/copyright</a><br>
+                    • <a href="https://www.opendatacommons.org/licenses/odbl" target="_blank">www.opendatacommons.org/licenses/odbl</a>
+                </p>
+
+                <h3>Conditions d'utilisation</h3>
+                <p>
+                    <strong>Contenu généré par les utilisateurs :</strong><br>
+                    • En soumettant des photos ou informations, vous accordez à Mapikids<br>
+                    une licence non-exclusive pour les utiliser dans l'application<br>
+                    • Vous garantissez détenir les droits sur le contenu soumis<br>
+                    • Mapikids se réserve le droit de modérer, modifier ou supprimer<br>
+                    tout contenu inapproprié, illégal ou non conforme<br>
+                    <br>
+                    <strong>Utilisation de l'application :</strong><br>
+                    • L'utilisation est gratuite et sans inscription<br>
+                    • Les utilisateurs s'engagent à respecter les autres utilisateurs<br>
+                    • Toute utilisation abusive peut entraîner un blocage
                 </p>
 
                 <h3>Protection des données</h3>
@@ -791,20 +898,25 @@
                     • Aucune inscription requise<br>
                     • Aucune donnée personnelle collectée<br>
                     • La géolocalisation reste sur votre appareil<br>
-                    • Aucun cookie de tracking
+                    • Les photos sont hébergées de manière anonyme<br>
+                    • Aucun cookie de tracking sur le site web
                 </p>
 
                 <h3>Propriété intellectuelle</h3>
                 <p>
                     L'ensemble du contenu de l'application Mapikids (logo, design, interface)<br>
-                    est protégé par le droit d'auteur. Toute reproduction est interdite sans autorisation.
+                    est protégé par le droit d'auteur. Toute reproduction est interdite sans autorisation.<br>
+                    Les marques et logos tiers restent la propriété de leurs détenteurs respectifs.
                 </p>
 
                 <h3>Responsabilité</h3>
                 <p>
                     Les informations sur les aires de jeux sont fournies à titre indicatif.<br>
                     Mapikids ne peut garantir l'exactitude ou l'exhaustivité des informations.<br>
-                    Les utilisateurs restent responsables de vérifier sur place l'état et la sécurité des installations.
+                    Les utilisateurs restent responsables de :<br>
+                    • Vérifier sur place l'état et la sécurité des installations<br>
+                    • Superviser leurs enfants lors de l'utilisation des aires de jeux<br>
+                    • Respecter les règlements et horaires des aires de jeux
                 </p>
             </div>
         </div>
