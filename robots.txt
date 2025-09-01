@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mapikids.app/sitemap.xml
+
+# Fichiers à ne pas indexer
+Disallow: /CNAME
+Disallow: /*.DS_Store
