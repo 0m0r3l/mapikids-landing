@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapikids - Statistiques en temps réel</title>
+    <meta name="description" content="Découvrez les statistiques en temps réel de Mapikids : aires de jeux, photos partagées et notes de la communauté.">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Scripts externes -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #fff8f0, #ffffff);
+            color: #334155;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        /* Header avec style harmonisé */
+        .header {
+            background: linear-gradient(135deg, #ffffff, #fffaf0);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 165, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #37ad6b;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+        
+        /* Écran de chargement élégant */
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(55, 173, 107, 0.1);
+            border-top: 6px solid #37ad6b;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 32px;
+        }
+        
+        .loading-text {
+            font-size: 24px;
+            color: #37ad6b;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .loading-progress {
+            width: 320px;
+            height: 6px;
+            background: rgba(55, 173, 107, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        
+        .loading-progress-bar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #37ad6b, #91d15e, #f8b251);
+            border-radius: 3px;
+            animation: loading-slide 2.5s ease-in-out infinite;
+        }
+        
+        .loading-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes loading-slide {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Grille de statistiques */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(55, 173, 107, 0.1);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #37ad6b;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        /* Section graphiques */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(55, 173, 107, 0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        /* Bouton de rafraîchissement */
+        .refresh-section {
+            text-align: center;
+            margin: 32px 0;
+        }
+        
+        .refresh-btn {
+            background: linear-gradient(135deg, #37ad6b, #91d15e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(55, 173, 107, 0.3);
+        }
+        
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(55, 173, 107, 0.4);
+        }
+        
+        .refresh-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #37ad6b;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .header {
+                padding: 24px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .loading-progress {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        // Configuration Supabase
+        const SUPABASE_URL = 'https://jkhzzmuvptjohdefgskx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpraHp6bXV2cHRqb2hkZWZnc2t4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4MDU3NjUsImV4cCI6MjA2OTM4MTc2NX0.gOuGW8hzpY461xCZlpIciVITbWTQah4cyE46pAUyIls';
+        
+        function Dashboard() {
+            const [loading, setLoading] = useState(true);
+            const [stats, setStats] = useState({
+                totalPlaygrounds: 0,
+                totalPhotos: 0,
+                totalRatings: 0,
+                avgRating: 0
+            });
+            const [charts, setCharts] = useState({
+                ratingsChart: null,
+                regionsChart: null
+            });
+            
+            // Chargement des données principales
+            const loadData = async () => {
+                try {
+                    setLoading(true);
+                    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    
+                    // Récupération des statistiques de base
+                    const [playgroundsResult, photosResult, ratingsResult] = await Promise.all([
+                        supabase.from('playgrounds').select('id', { count: 'exact', head: true }),
+                        supabase.from('playground_photos').select('id', { count: 'exact', head: true }),
+                        supabase.from('playground_ratings').select('rating')
+                    ]);
+                    
+                    const totalPlaygrounds = playgroundsResult.count || 0;
+                    const totalPhotos = photosResult.count || 0;
+                    const ratings = ratingsResult.data || [];
+                    
+                    let avgRating = 0;
+                    if (ratings.length > 0) {
+                        const sum = ratings.reduce((acc, r) => acc + (r.rating || 0), 0);
+                        avgRating = sum / ratings.length;
+                    }
+                    
+                    setStats({
+                        totalPlaygrounds,
+                        totalPhotos,
+                        totalRatings: ratings.length,
+                        avgRating: avgRating.toFixed(1)
+                    });
+                    
+                    // Préparer les données pour les graphiques
+                    createCharts(ratings);
+                    
+                } catch (error) {
+                    console.error('Erreur de chargement:', error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            
+            // Création des graphiques
+            const createCharts = (ratings) => {
+                // Distribution des notes
+                if (ratings.length > 0) {
+                    const distribution = [0, 0, 0, 0, 0];
+                    ratings.forEach(r => {
+                        if (r.rating >= 1 && r.rating <= 5) {
+                            distribution[r.rating - 1]++;
+                        }
+                    });
+                    
+                    setTimeout(() => {
+                        const ctx = document.getElementById('ratingsChart');
+                        if (ctx && window.Chart) {
+                            new window.Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['1★', '2★', '3★', '4★', '5★'],
+                                    datasets: [{
+                                        data: distribution,
+                                        backgroundColor: [
+                                            '#f03a2a',
+                                            '#f8b251',
+                                            '#91d15e',
+                                            '#37ad6b',
+                                            '#20b1b9'
+                                        ],
+                                        borderWidth: 0
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                        legend: {
+                                            position: 'bottom'
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }, 100);
+                }
+            };
+            
+            // Chargement initial
+            useEffect(() => {
+                loadData();
+            }, []);
+            
+            if (loading) {
+                return (
+                    <div className="container">
+                        <div className="loading-screen">
+                            <div className="loading-spinner"></div>
+                            <div className="loading-text">Chargement des statistiques</div>
+                            <div className="loading-progress">
+                                <div className="loading-progress-bar"></div>
+                            </div>
+                            <div className="loading-subtitle">
+                                Récupération des données en temps réel depuis la communauté Mapikids...
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+            
+            return (
+                <div className="container">
+                    <div className="header">
+                        <h1>📊 Statistiques Mapikids</h1>
+                        <p>Découvrez l'activité de la communauté en temps réel</p>
+                    </div>
+                    
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <div className="stat-number">{stats.totalPlaygrounds.toLocaleString()}</div>
+                            <div className="stat-label">Aires de jeux</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{stats.totalPhotos.toLocaleString()}</div>
+                            <div className="stat-label">Photos partagées</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{stats.totalRatings.toLocaleString()}</div>
+                            <div className="stat-label">Notes données</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{stats.avgRating}★</div>
+                            <div className="stat-label">Note moyenne</div>
+                        </div>
+                    </div>
+                    
+                    {stats.totalRatings > 0 && (
+                        <div className="charts-section">
+                            <div className="chart-card">
+                                <h3 className="chart-title">Distribution des notes</h3>
+                                <div className="chart-container">
+                                    <canvas id="ratingsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    <div className="refresh-section">
+                        <button 
+                            className="refresh-btn" 
+                            onClick={loadData}
+                            disabled={loading}
+                        >
+                            {loading ? 'Chargement...' : '🔄 Actualiser les données'}
+                        </button>
+                    </div>
+                    
+                    <div className="footer">
+                        <p>
+                            Données mises à jour en temps réel • 
+                            <a href="/" style={{marginLeft: '8px'}}>← Retour à l'accueil</a>
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+        
+        // Rendu de l'application
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(Dashboard));
+    </script>
+</body>
+</html>
