@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques Mapikids • 42 592 aires de jeux</title>
+    <meta name="description" content="42 592 aires de jeux, 182 photos partagées, 54 aires enrichies. Statistiques mises à jour le 8 septembre 2025.">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Statistiques Mapikids • 42 592 aires de jeux">
+    <meta property="og:description" content="42 592 aires de jeux, 182 photos partagées, 54 aires enrichies. Statistiques mises à jour le 8 septembre 2025.">
+    <meta property="og:image" content="https://mapikids.app/stats-og.png">
+    <meta property="og:url" content="https://mapikids.app/stats.html">
+    
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <style>
+        /* Variables CSS MapiKids */
+        :root {
+            --mapikids-green: #37ad6b;
+            --mapikids-yellow: #f8b251;
+            --mapikids-black: #0c1f2c;
+            --mapikids-light-green: #91d15e;
+            --mapikids-red: #f03a2a;
+            --mapikids-turquoise: #20b1b9;
+            --gradient-primary: linear-gradient(135deg, var(--mapikids-turquoise), var(--mapikids-yellow));
+            --gradient-secondary: linear-gradient(135deg, var(--mapikids-yellow), var(--mapikids-turquoise));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--mapikids-black);
+            overflow-x: hidden;
+            background: linear-gradient(to bottom, #fff8f0, #ffffff);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Container principal */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        /* Header de la page */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--mapikids-turquoise);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.25rem;
+            color: #64748b;
+        }
+
+        /* Grilles de widgets */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Cartes statistiques principales */
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--mapikids-turquoise);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .stat-icon .material-symbols-outlined {
+            font-size: 3rem;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+        }
+        
+        /* Couleurs spécifiques par statistique */
+        .stat-card:nth-child(1) .material-symbols-outlined {
+            color: var(--mapikids-green);
+        }
+        
+        .stat-card:nth-child(2) .material-symbols-outlined {
+            color: var(--mapikids-yellow);
+        }
+        
+        .stat-card:nth-child(3) .material-symbols-outlined {
+            color: var(--mapikids-turquoise);
+        }
+        
+        .stat-card:nth-child(4) .material-symbols-outlined {
+            color: var(--mapikids-red);
+        }
+
+        /* Widget cards */
+        .widget-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(32, 177, 185, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .widget-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--mapikids-black);
+            margin: 0 0 1.5rem 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            text-align: left;
+            line-height: 1.4;
+        }
+        
+        .widget-title .material-symbols-outlined {
+            font-size: 1.5rem;
+            color: var(--mapikids-yellow);
+            flex-shrink: 0;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .widget-content {
+            position: relative;
+        }
+
+        /* Graphiques */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1rem 0;
+        }
+
+        .chart-container canvas {
+            max-width: 100% !important;
+        }
+
+        /* Listes dans les widgets */
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+
+        .ranking-position {
+            font-weight: 600;
+            color: var(--mapikids-turquoise);
+            min-width: 30px;
+        }
+
+        .ranking-name {
+            flex: 1;
+            margin-left: 1rem;
+            color: var(--mapikids-black);
+        }
+
+        .ranking-count {
+            font-weight: 600;
+            color: var(--mapikids-green);
+        }
+
+        /* Highlighted item */
+        .highlight-item {
+            background: linear-gradient(135deg, #fffaf0, #ffffff);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid rgba(248, 178, 81, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--mapikids-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-info {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--mapikids-black);
+            color: white;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .footer-content h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .footer-links {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-links a {
+            color: var(--mapikids-yellow);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--mapikids-red);
+        }
+
+        /* Decorative Elements */
+        .decoration-1 {
+            position: absolute;
+            top: 10%;
+            right: -100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--mapikids-yellow), transparent);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 4s ease-in-out infinite;
+        }
+        .decoration-2 {
+            position: absolute;
+            bottom: 10%;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--mapikids-red), transparent);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 5s ease-in-out infinite reverse;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 5rem 1rem 1rem;
+            }
+
+            .widgets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .footer-links {
+                font-size: 0.9rem;
+            }
+            
+            .footer-links a {
+                margin: 0 0.25rem;
+            }
+            
+            .footer-links > p:last-child {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .footer-links > p:last-child span[style*="margin"] {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/mapikids-logo-txt.png" alt="Mapikids" class="logo-img">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Decorative Elements -->
+    <div class="decoration-1"></div>
+    <div class="decoration-2"></div>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h1>Statistiques Mapikids</h1>
+            <p>Découvrez l'activité de la communauté Mapikids</p>
+            <p style="font-size: 0.9rem; color: #64748b; margin-top: 1rem; font-style: italic;">
+            Dernière mise à jour : 8 septembre 2025 à 02:22
+            </p>
+        </div>
+
+        <!-- Statistiques principales -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="material-symbols-outlined">playground</span>
+                </div>
+                <div class="stat-number">42 592</div>
+                <div class="stat-label">Aires de jeux</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="material-symbols-outlined">edit_location</span>
+                </div>
+                <div class="stat-number">54</div>
+                <div class="stat-label">Aires enrichies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="material-symbols-outlined">photo_library</span>
+                </div>
+                <div class="stat-number">182</div>
+                <div class="stat-label">Photos partagées</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="material-symbols-outlined">star_half</span>
+                </div>
+                <div class="stat-number">30</div>
+                <div class="stat-label">Notes données<br/><small style="color: var(--mapikids-turquoise); font-size: 1.1rem; font-weight: 600;">Moyenne : 4.5★</small></div>
+            </div>
+        </div>
+
+        <!-- Widgets détaillés -->
+        <div class="widgets-grid">
+            <!-- Classement départements -->
+            <div class="widget-card">
+                <h3 class="widget-title">
+                    <span class="material-symbols-outlined">social_leaderboard</span>
+                    Top départements
+                </h3>
+                <div class="widget-content">
+                    <ul class="ranking-list">
+                        <li class="ranking-item">
+          <span class="ranking-position">#1</span>
+          <span class="ranking-name">Paris</span>
+          <span class="ranking-count">7 921</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#2</span>
+          <span class="ranking-name">Rhône</span>
+          <span class="ranking-count">2 434</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#3</span>
+          <span class="ranking-name">Hérault</span>
+          <span class="ranking-count">2 211</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#4</span>
+          <span class="ranking-name">Loire-Atlantique</span>
+          <span class="ranking-count">1 928</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#5</span>
+          <span class="ranking-name">Essonne</span>
+          <span class="ranking-count">1 304</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#6</span>
+          <span class="ranking-name">Seine-et-Marne</span>
+          <span class="ranking-count">1 080</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#7</span>
+          <span class="ranking-name">Nord</span>
+          <span class="ranking-count">1 068</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#8</span>
+          <span class="ranking-name">Doubs</span>
+          <span class="ranking-count">970</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#9</span>
+          <span class="ranking-name">Yvelines</span>
+          <span class="ranking-count">938</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#10</span>
+          <span class="ranking-name">Gironde</span>
+          <span class="ranking-count">886</span>
+        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Équipements populaires -->
+            <div class="widget-card">
+                <h3 class="widget-title">
+                    <span class="material-symbols-outlined">leaderboard</span>
+                    Équipements populaires
+                </h3>
+                <div class="widget-content">
+                    <ul class="ranking-list">
+                        <li class="ranking-item">
+          <span class="ranking-position">#1</span>
+          <span class="ranking-name">Toboggan</span>
+          <span class="ranking-count">38</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#2</span>
+          <span class="ranking-name">Jeu à ressort</span>
+          <span class="ranking-count">22</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#3</span>
+          <span class="ranking-name">Araignée</span>
+          <span class="ranking-count">17</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#4</span>
+          <span class="ranking-name">Balançoire</span>
+          <span class="ranking-count">12</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#5</span>
+          <span class="ranking-name">Tape-cul</span>
+          <span class="ranking-count">10</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#6</span>
+          <span class="ranking-name">Tourniquet</span>
+          <span class="ranking-count">7</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#7</span>
+          <span class="ranking-name">Barres suspendues</span>
+          <span class="ranking-count">2</span>
+        </li><li class="ranking-item">
+          <span class="ranking-position">#8</span>
+          <span class="ranking-name">Trampoline</span>
+          <span class="ranking-count">1</span>
+        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Dernières aires enrichies -->
+            <div class="widget-card">
+                <h3 class="widget-title">
+                    <span class="material-symbols-outlined">rss_feed</span>
+                    Dernières aires enrichies
+                </h3>
+                <div class="widget-content">
+                    <div class="highlight-item" style="margin-bottom: 1rem;">
+        <div class="highlight-title">Aire de jeux</div>
+        <div class="highlight-info">
+          
+          <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px; color: 
+  var(--mapikids-yellow);">edit_calendar</span>7 septembre 2025<br/>
+          <a href="https://maps.google.com/?q=49.0227933,2.1516906" 
+  target="_blank" style="color: var(--mapikids-turquoise); text-decoration: none;">
+            <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px; color: 
+  var(--mapikids-turquoise);">map_search</span>Voir sur Google Maps
+          </a>
+        </div>
+      </div><div class="highlight-item" style="margin-bottom: 1rem;">
+        <div class="highlight-title">Aire de jeux</div>
+        <div class="highlight-info">
+          
+          <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px; color: 
+  var(--mapikids-yellow);">edit_calendar</span>7 septembre 2025<br/>
+          <a href="https://maps.google.com/?q=49.0230694,2.1518726" 
+  target="_blank" style="color: var(--mapikids-turquoise); text-decoration: none;">
+            <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px; color: 
+  var(--mapikids-turquoise);">map_search</span>Voir sur Google Maps
+          </a>
+        </div>
+      </div><div class="highlight-item" style="">
+        <div class="highlight-title">Aire de jeux</div>
+        <div class="highlight-info">
+          
+          <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px; color: 
+  var(--mapikids-yellow);">edit_calendar</span>7 septembre 2025<br/>
+          <a href="https://maps.google.com/?q=49.0227933,2.1516906" 
+  target="_blank" style="color: var(--mapikids-turquoise); text-decoration: none;">
+            <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px; color: 
+  var(--mapikids-turquoise);">map_search</span>Voir sur Google Maps
+          </a>
+        </div>
+      </div>
+                </div>
+            </div>
+
+            <!-- Graphique historique -->
+            <div class="widget-card" style="grid-column: 1 / -1;">
+                <h3 class="widget-title">
+                    <span class="material-symbols-outlined">timeline</span>
+                    Historique des éditions
+                </h3>
+                <div class="widget-content">
+                    <div class="chart-container">
+                        <canvas id="editsHistoryChart" width="800" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Mapikids</h3>
+            <p style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                Développé à Franconville
+                <svg width="20" height="22" viewBox="0 0 600 660" style="fill: white; opacity: 0.8;">
+                    <path d="M 300,658.5 C 300,658.5 598.5,546.18 598.5,260.73 C 598.5,-24.72 598.5,2.18 598.5,2.18 L 1.5,2.18 L 1.5,260.73 C 1.5,546.18 300,658.5 300,658.5 z" fill="#e20909"/>
+                    <path d="M 159.75,2.19 L 573.25,397.72 C 588.95,357.37 598.5,311.81 598.5,260.72 C 598.5,-24.73 598.5,2.19 598.5,2.19 L 159.75,2.19 z" fill="#2b5df2"/>
+                    <path d="M 1.5,2.19 L 1.5,156.63 L 439.03,575.16 C 490.25,533.54 543.08,475.23 573.25,397.72 L 159.75,2.19 L 1.5,2.19 z" fill="white"/>
+                </svg>
+                avec
+                <span class="material-symbols-outlined" style="font-size: 20px; color: var(--mapikids-red);">favorite</span>
+                pour les familles
+                <span class="material-symbols-outlined" style="font-size: 24px; color: var(--mapikids-green); opacity: 0.8;">family_restroom</span>
+            </p>
+            
+            <div class="footer-links">
+                <p style="margin-bottom: 0.5rem;">© 2025 Mapikids - Tous droits réservés</p>
+                <p style="margin-top: 0.5rem;">
+                    <a href="#" onclick="showMentions(); return false;">Mentions légales</a>
+                    <span style="margin: 0 0.5rem;">|</span>
+                    <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap Contributors</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Mentions Légales -->
+    <div id="mentionsModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(12,31,44,0.5);">
+        <div class="modal-content" style="background-color: white; padding: 2rem; border-radius: 20px; max-width: 600px; max-height: 80vh; overflow-y: auto; margin: 2rem auto; margin-top: 5vh;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
+                <h2 style="color: var(--mapikids-turquoise); margin: 0;">Mentions légales</h2>
+                <button class="close-modal" onclick="closeMentions()" style="background: none; border: none; font-size: 2rem; cursor: pointer; color: #666; padding: 0; margin: 0;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3 style="color: var(--mapikids-green); margin-top: 2rem; margin-bottom: 1rem;">Éditeur</h3>
+                <p style="color: var(--mapikids-black); line-height: 1.6; margin-bottom: 1rem;">
+                    Mapikids<br/>
+                    Application mobile et site web édités par un particulier
+                </p>
+                <h3 style="color: var(--mapikids-green); margin-top: 2rem; margin-bottom: 1rem;">Hébergement</h3>
+                <p style="color: var(--mapikids-black); line-height: 1.6; margin-bottom: 1rem;">
+                    Site web hébergé par GitHub Pages<br/>
+                    GitHub, Inc.<br/>
+                    88 Colin P Kelly Jr St<br/>
+                    San Francisco, CA 94107<br/>
+                    États-Unis
+                </p>
+                <h3 style="color: var(--mapikids-green); margin-top: 2rem; margin-bottom: 1rem;">Données cartographiques - Attribution</h3>
+                <p style="color: var(--mapikids-black); line-height: 1.6; margin-bottom: 1rem;">
+                    © Contributeurs OpenStreetMap<br/>
+                    Les données des aires de jeux proviennent d'OpenStreetMap®,<br/>
+                    disponibles sous la licence Open Database License (ODbL)<br/>
+                    par la Fondation OpenStreetMap (OSMF).<br/>
+                    <a href="https://www.openstreetmap.org/copyright" target="_blank" style="color: var(--mapikids-turquoise); text-decoration: none;">Plus d'informations sur les droits d'usage</a>
+                </p>
+                <h3 style="color: var(--mapikids-green); margin-top: 2rem; margin-bottom: 1rem;">Contact</h3>
+                <p style="color: var(--mapikids-black); line-height: 1.6; margin-bottom: 1rem;">
+                    Email : hello@mapikids.app<br/>
+                    Site web : https://mapikids.app
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script>
+        // Graphique avec données statiques de n8n
+        const editsHistoryData = [{"date":"8 août","count":11},{"date":"12 août","count":1},{"date":"14 août","count":1},{"date":"15 août","count":5},{"date":"16 août","count":15},{"date":"21 août","count":5},{"date":"22 août","count":9},{"date":"23 août","count":3},{"date":"24 août","count":12},{"date":"26 août","count":1},{"date":"27 août","count":2},{"date":"28 août","count":1},{"date":"29 août","count":7},{"date":"30 août","count":12},{"date":"31 août","count":2},{"date":"3 sept.","count":1},{"date":"4 sept.","count":1},{"date":"6 sept.","count":23},{"date":"7 sept.","count":4}];
+        
+        if (window.Chart && editsHistoryData && editsHistoryData.length > 0) {
+            const canvas = document.getElementById('editsHistoryChart');
+            const ctx = canvas.getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: editsHistoryData.map(item => item.date),
+                    datasets: [{
+                        label: 'Éditions par jour',
+                        data: editsHistoryData.map(item => item.count),
+                        borderColor: '#f8b251',
+                        backgroundColor: 'rgba(248, 178, 81, 0.15)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#f8b251',
+                        pointBorderColor: '#f8b251',
+                        pointBorderWidth: 3,
+                        pointHoverBackgroundColor: '#f03a2a',
+                        pointHoverBorderColor: '#f8b251',
+                        pointHoverBorderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(12, 31, 44, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { 
+                                color: 'rgba(248, 178, 81, 0.2)',
+                                drawBorder: false
+                            },
+                            ticks: { 
+                                precision: 0,
+                                color: '#20b1b9'
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: '#37ad6b'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Fonctions pour la modale des mentions légales
+        function showMentions() {
+            document.getElementById('mentionsModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMentions() {
+            document.getElementById('mentionsModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Gestion des événements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modale
+            document.getElementById('mentionsModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeMentions();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMentions();
+                }
+            });
+
+            // Année dynamique
+            const year = new Date().getFullYear();
+            const footerTexts = document.querySelectorAll('.footer-links p');
+            footerTexts.forEach(p => {
+                if (p.innerHTML) {
+                    p.innerHTML = p.innerHTML.replace('2025', year);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
