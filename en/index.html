@@ -1,62 +1,62 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapikids - L'app qui localise les aires de jeux pour vos enfants</title>
-    <meta name="description" content="Trouvez instantanément les aires de jeux les plus proches. Plus de 40 000 aires référencées en France. Téléchargez Mapikids sur l'App Store et le Play Store.">
-    <meta name="keywords" content="aire de jeux, enfants, famille, parc, toboggan, balançoire, France, géolocalisation, gratuit, sortie famille, parc enfants, jeux extérieur">
+    <title>Mapikids - Find playgrounds for your children instantly</title>
+    <meta name="description" content="Find playgrounds near you instantly. Over 40,000 playgrounds across France. Download Mapikids on the App Store and Play Store.">
+    <meta name="keywords" content="playground, children, family, park, slide, swing, France, geolocation, free, family outing, kids park, outdoor games">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="language" content="fr">
+    <meta name="language" content="en">
     <meta name="geo.region" content="FR">
     <meta name="geo.country" content="France">
-    
-    <!-- Open Graph amélioré -->
+
+    <!-- Open Graph -->
     <meta property="og:site_name" content="Mapikids">
-    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Mapikids - L'app des aires de jeux">
-    <meta property="og:description" content="Localisez instantanément les aires de jeux proches de vous. Application gratuite sur iOS et Android.">
+    <meta property="og:title" content="Mapikids - The playground finder app">
+    <meta property="og:description" content="Instantly locate playgrounds near you. Free app on iOS and Android.">
     <meta property="og:image" content="https://mapikids.app/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Mapikids - L'app qui localise les aires de jeux">
-    <meta property="og:url" content="https://mapikids.app">
-    
+    <meta property="og:image:alt" content="Mapikids - The playground finder app">
+    <meta property="og:url" content="https://mapikids.app/en">
+
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@mapikids">
     <meta name="twitter:creator" content="@mapikids">
-    <meta name="twitter:title" content="Mapikids - L'app des aires de jeux">
-    <meta name="twitter:description" content="Trouvez instantanément les aires de jeux les plus proches. Plus de 40 000 aires référencées en France.">
+    <meta name="twitter:title" content="Mapikids - The playground finder app">
+    <meta name="twitter:description" content="Find playgrounds near you instantly. Over 40,000 playgrounds across France.">
     <meta name="twitter:image" content="https://mapikids.app/og-image.png">
-    
+
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://mapikids.app">
-    
+    <link rel="canonical" href="https://mapikids.app/en">
+
     <!-- Alternative languages -->
     <link rel="alternate" hreflang="fr" href="https://mapikids.app">
     <link rel="alternate" hreflang="en" href="https://mapikids.app/en">
     <link rel="alternate" hreflang="x-default" href="https://mapikids.app">
-    
-    <!-- Preconnect pour performance -->
+
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://apple.co">
-    
+
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Smart App Banners -->
     <meta name="apple-itunes-app" content="app-id=6749680478">
     <meta name="google-play-app" content="app-id=app.mapikids.mapikids">
-    
+
     <style>
         * {
             margin: 0;
@@ -248,29 +248,6 @@
             width: 320px;
             white-space: nowrap;
         }
-
-        /* Bouton Découvrir en commentaire pour l'instant
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: white;
-            color: var(--mapikids-red);
-            text-decoration: none;
-            border: 2px solid var(--mapikids-red);
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background: var(--mapikids-red);
-            color: white;
-            transform: translateY(-3px);
-        }
-        */
 
         .hero-image {
             position: relative;
@@ -514,7 +491,7 @@
             color: var(--mapikids-red);
         }
 
-        /* Modal Mentions Légales */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -639,43 +616,43 @@
             .screenshot-carousel img {
                 object-position: center -10px;
             }
-            
+
             .stat-number {
                 font-size: 2.5rem;
             }
-            
+
             .footer-links {
                 font-size: 0.9rem;
             }
-            
+
             .footer-links a {
                 margin: 0 0.25rem;
             }
-            
+
             .footer-links > p:last-child {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 0.5rem;
             }
-            
+
             .footer-links > p:last-child span[style*="margin"] {
                 display: none;
             }
-            
+
             .hero-container {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-            
+
             .cta-buttons {
                 justify-content: center;
             }
-            
+
             .features-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .roadmap-item {
                 flex-direction: column;
                 align-items: center;
@@ -692,14 +669,14 @@
             to { opacity: 1; }
         }
     </style>
-    
+
     <!-- Structured Data - MobileApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MobileApplication",
       "name": "Mapikids",
-      "description": "L'application qui localise les aires de jeux pour vos enfants. Plus de 40 000 aires référencées partout en France.",
+      "description": "The app that finds playgrounds for your children. Over 40,000 playgrounds across France.",
       "applicationCategory": "LifestyleApplication",
       "applicationSubCategory": "Family",
       "operatingSystem": "iOS 17.0+",
@@ -709,59 +686,59 @@
         "priceCurrency": "EUR"
       },
       "author": {
-        "@type": "Organization", 
+        "@type": "Organization",
         "name": "Mapikids"
       },
-      "url": "https://mapikids.app",
+      "url": "https://mapikids.app/en",
       "downloadUrl": "https://apple.co/3JcWAJA",
       "screenshot": [
         "https://mapikids.app/mapikids-screen-map.png",
-        "https://mapikids.app/mapikids-screen-details.png", 
+        "https://mapikids.app/mapikids-screen-details.png",
         "https://mapikids.app/mapikids-screen-photos.png"
       ],
       "featureList": [
-        "Géolocalisation des aires de jeux près de chez moi",
-        "Plus de 40 000 aires référencées en France", 
-        "Contribution communautaire pour enrichir les données",
-        "Galerie photos des aires de jeux",
-        "Notes et avis communautaires",
-        "Interface gratuite sans inscription"
+        "Find playgrounds near me",
+        "Over 40,000 playgrounds in France",
+        "Community contributions to enrich data",
+        "Playground photo gallery",
+        "Community ratings and reviews",
+        "Free interface with no registration"
       ],
     }
     </script>
-    
+
     <!-- Structured Data - FAQ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "FAQPage", 
+      "@type": "FAQPage",
       "mainEntity": [{
         "@type": "Question",
-        "name": "Combien d'aires de jeux sont référencées sur Mapikids ?",
+        "name": "How many playgrounds are listed on Mapikids?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Plus de 40 000 aires de jeux sont référencées dans toute la France, couvrant 96 départements. Trouvez facilement une aire de jeux près de chez vous."
-        }
-      }, {
-        "@type": "Question", 
-        "name": "L'application Mapikids est-elle gratuite ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Oui, Mapikids est 100% gratuite et ne nécessite aucune inscription. Respect total de votre vie privée."
+          "text": "Over 40,000 playgrounds are listed throughout France, covering 96 departments. Easily find a playground near you."
         }
       }, {
         "@type": "Question",
-        "name": "Sur quelles plateformes Mapikids est-elle disponible ?", 
+        "name": "Is the Mapikids app free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Mapikids est disponible sur iOS (App Store) et Android (Play Store)."
+          "text": "Yes, Mapikids is 100% free and requires no registration. Complete respect for your privacy."
         }
       }, {
         "@type": "Question",
-        "name": "Quels équipements peut-on trouver dans les aires de jeux ?",
+        "name": "On which platforms is Mapikids available?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Toboggans, balançoires, bacs à sable, tourniquets, structures d'escalade, et plus de 30 autres types d'équipements pour enfants de tous âges."
+          "text": "Mapikids is available on iOS (App Store) and Android (Play Store)."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What equipment can you find in playgrounds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Slides, swings, sandboxes, roundabouts, climbing structures, and over 30 other types of equipment for children of all ages."
         }
       }]
     }
@@ -772,11 +749,11 @@
     <nav>
         <div class="nav-container">
             <div class="logo">
-                <img src="mapikids-logo-txt.png" alt="Mapikids" class="logo-img">
+                <img src="../mapikids-logo-txt.png" alt="Mapikids" class="logo-img">
             </div>
             <div class="lang-selector">
-                <a href="/" class="lang-btn active">FR</a>
-                <a href="/en" class="lang-btn">EN</a>
+                <a href="/" class="lang-btn">FR</a>
+                <a href="/en" class="lang-btn active">EN</a>
             </div>
         </div>
     </nav>
@@ -787,39 +764,30 @@
         <div class="decoration-2"></div>
         <div class="hero-container">
             <div class="hero-content">
-                <h1>L'application qui localise les aires de jeux pour vos enfants</h1>
-                <p>Plus de 40 000 aires référencées partout en France. Trouvez instantanément une aire de jeux près de chez vous, découvrez ses équipements (toboggan, balançoire, bac à sable) et contribuez à enrichir cette base de données collaborative pour toutes les familles.</p>
+                <h1>The app that finds playgrounds for your children</h1>
+                <p>Over 40,000 playgrounds across France. Instantly find a playground near you, discover its equipment (slides, swings, sandboxes) and contribute to enriching this collaborative database for all families.</p>
                 <div class="cta-buttons">
                     <a href="https://apple.co/3JcWAJA" target="_blank" class="btn-primary" id="download">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                         </svg>
-                        Télécharger sur l'App Store
+                        Download on App Store
                     </a>
                     <a href="https://play.google.com/store/apps/details?id=app.mapikids.mapikids" target="_blank" class="btn-primary" style="background: var(--mapikids-green);">
                         <span class="material-icons" style="font-size: 24px; color: white;">android</span>
-                        Télécharger sur le Play Store
+                        Download on Play Store
                     </a>
-                    <!-- Bouton Découvrir commenté pour l'instant
-                    <a href="#features" class="btn-secondary">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polygon points="10 8 16 12 10 16 10 8"/>
-                        </svg>
-                        Découvrir
-                    </a>
-                    -->
                 </div>
             </div>
             <div class="hero-image">
                 <div class="phone-mockup animate-float">
                     <div class="phone-screen">
                         <div class="screenshot-carousel">
-                            <img src="mapikids-screen-map.png" alt="Carte des aires de jeux Mapikids" class="active" />
-                            <img src="mapikids-screen-details.png" alt="Détails d'une aire de jeux Mapikids" />
-                            <img src="mapikids-screen-photos.png" alt="Album photos d'une aire de jeux Mapikids" />
-                            <img src="mapikids-screen-characteristics.png" alt="Caractéristiques détaillés d'une aire de jeux Mapikids" />
-                            <img src="mapikids-screen-photos-upload.png" alt="Envoyez vos photos d'une aire de jeux Mapikids" />
+                            <img src="../mapikids-screen-map.png" alt="Mapikids playground map" class="active" />
+                            <img src="../mapikids-screen-details.png" alt="Mapikids playground details" />
+                            <img src="../mapikids-screen-photos.png" alt="Mapikids playground photos" />
+                            <img src="../mapikids-screen-characteristics.png" alt="Mapikids playground characteristics" />
+                            <img src="../mapikids-screen-photos-upload.png" alt="Upload your Mapikids playground photos" />
                         </div>
                     </div>
                 </div>
@@ -830,56 +798,56 @@
     <!-- Features -->
     <section class="features" id="features">
         <div class="features-container">
-            <h2 class="section-title">Fonctionnalités clés</h2>
-            <p class="section-subtitle">Tout ce qu'il faut pour trouver l'aire de jeux parfaite</p>
-            
+            <h2 class="section-title">Key Features</h2>
+            <p class="section-subtitle">Everything you need to find the perfect playground</p>
+
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <span class="material-icons" style="font-size: 32px; color: white;">location_on</span>
                     </div>
-                    <h3>Géolocalisation</h3>
-                    <p>Localisez instantanément les aires de jeux près de chez vous. La carte s'adapte automatiquement à votre position pour vous montrer où emmener les enfants pour une sortie famille réussie.</p>
+                    <h3>Geolocation</h3>
+                    <p>Instantly locate playgrounds near you. The map automatically adjusts to your position to show you where to take the kids for a successful family outing.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <span class="material-icons" style="font-size: 32px; color: white;">toys</span>
                     </div>
-                    <h3>Équipements détaillés</h3>
-                    <p>Consultez la liste complète des jeux disponibles : toboggan, balançoire, tourniquet, bac à sable, et plus de 30 autres équipements pour enfants de 2 ans à 12 ans.</p>
+                    <h3>Detailed Equipment</h3>
+                    <p>View the complete list of available equipment: slides, swings, roundabouts, sandboxes, and over 30 other equipment types for children aged 2 to 12.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <span class="material-icons" style="font-size: 32px; color: white;">lock_open</span>
                     </div>
-                    <h3>Sans inscription</h3>
-                    <p>Respect total de votre vie privée. Aucune inscription requise, aucune donnée personnelle collectée.</p>
+                    <h3>No Registration</h3>
+                    <p>Complete respect for your privacy. No registration required, no personal data collected.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <span class="material-icons" style="font-size: 32px; color: white;">group</span>
                     </div>
-                    <h3>Contribution communautaire</h3>
-                    <p>Enrichissez les fiches en ajoutant des informations sur les équipements, l'âge recommandé, les services disponibles.</p>
+                    <h3>Community Contributions</h3>
+                    <p>Enrich listings by adding information about equipment, recommended ages, and available services.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <span class="material-icons" style="font-size: 32px; color: white;">photo_camera</span>
                     </div>
-                    <h3>Galerie photos</h3>
-                    <p>Partagez et consultez les photos des aires de jeux pour mieux les découvrir avant de vous y rendre. Parfait pour planifier vos sorties famille en toute sérénité.</p>
+                    <h3>Photo Gallery</h3>
+                    <p>Share and view playground photos to discover them better before you visit. Perfect for planning your family outings with peace of mind.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <span class="material-icons" style="font-size: 32px; color: white;">star</span>
                     </div>
-                    <h3>Notes et avis</h3>
-                    <p>Évaluez les aires de jeux et consultez les avis de la communauté pour faire le meilleur choix.</p>
+                    <h3>Ratings and Reviews</h3>
+                    <p>Rate playgrounds and check community reviews to make the best choice.</p>
                 </div>
             </div>
         </div>
@@ -889,16 +857,16 @@
     <section class="stats">
         <div class="stats-container">
             <div class="stat-item">
-                <div class="stat-number">40 000+</div>
-                <div class="stat-label">Aires référencées</div>
+                <div class="stat-number">40,000+</div>
+                <div class="stat-label">Playgrounds listed</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number">96</div>
-                <div class="stat-label">Départements couverts</div>
+                <div class="stat-label">Departments covered</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number">100%</div>
-                <div class="stat-label">Gratuit</div>
+                <div class="stat-label">Free</div>
             </div>
         </div>
     </section>
@@ -906,40 +874,40 @@
     <!-- Coming Soon -->
     <section class="coming-soon">
         <div class="features-container">
-            <h2 class="section-title">À venir</h2>
-            <p class="section-subtitle">Nous travaillons sur de nouvelles fonctionnalités</p>
-            
+            <h2 class="section-title">Coming Soon</h2>
+            <p class="section-subtitle">We're working on new features</p>
+
             <div class="roadmap">
                 <div class="roadmap-item">
                     <div class="roadmap-icon">
                         <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">filter_list</span>
                     </div>
                     <div class="roadmap-content">
-                        <h3>Filtres de recherche avancés</h3>
-                        <p>Nous attendons que la base de données s'enrichisse davantage avant d'implémenter des filtres par âge, équipements spécifiques, accessibilité PMR, etc.</p>
+                        <h3>Advanced Search Filters</h3>
+                        <p>We're waiting for the database to be enriched further before implementing filters by age, specific equipment, accessibility, etc.</p>
                     </div>
                 </div>
-                
+
                 <div class="roadmap-item">
                     <div class="roadmap-icon">
                         <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">public</span>
                     </div>
                     <div class="roadmap-content">
-                        <h3>Nouveaux pays</h3>
-                        <p>Extension de la couverture à d'autres pays européens pour vous accompagner même en vacances.</p>
+                        <h3>New Countries</h3>
+                        <p>Expanding coverage to other European countries to accompany you even on vacation.</p>
                     </div>
                 </div>
-                
+
                 <div class="roadmap-item">
                     <div class="roadmap-icon">
                         <span class="material-icons" style="font-size: 24px; color: var(--mapikids-yellow);">translate</span>
                     </div>
                     <div class="roadmap-content">
-                        <h3>Traduction en anglais</h3>
-                        <p>Version anglaise de l'application pour la rendre accessible à un public international.</p>
+                        <h3>More Languages</h3>
+                        <p>Adding more languages to make the app accessible to an even wider international audience.</p>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -949,22 +917,22 @@
         <div class="footer-content">
             <h3>Mapikids</h3>
             <p style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                Développé à Franconville
+                Developed in Franconville
                 <svg width="20" height="22" viewBox="0 0 600 660" style="fill: white; opacity: 0.8;">
                     <path d="M 300,658.5 C 300,658.5 598.5,546.18 598.5,260.73 C 598.5,-24.72 598.5,2.18 598.5,2.18 L 1.5,2.18 L 1.5,260.73 C 1.5,546.18 300,658.5 300,658.5 z" fill="#e20909"/>
                     <path d="M 159.75,2.19 L 573.25,397.72 C 588.95,357.37 598.5,311.81 598.5,260.72 C 598.5,-24.73 598.5,2.19 598.5,2.19 L 159.75,2.19 z" fill="#2b5df2"/>
                     <path d="M 1.5,2.19 L 1.5,156.63 L 439.03,575.16 C 490.25,533.54 543.08,475.23 573.25,397.72 L 159.75,2.19 L 1.5,2.19 z" fill="white"/>
                 </svg>
-                avec
+                with
                 <span class="material-icons" style="font-size: 20px; color: var(--mapikids-red);">favorite</span>
-                pour les familles
+                for families
                 <span class="material-icons" style="font-size: 24px; color: var(--mapikids-green); opacity: 0.8;">family_restroom</span>
             </p>
-            
+
             <div class="footer-links">
-                <p style="margin-bottom: 0.5rem;">© 2025 Mapikids - Tous droits réservés</p>
+                <p style="margin-bottom: 0.5rem;">© 2025 Mapikids - All rights reserved</p>
                 <p style="margin-top: 0.5rem;">
-                    <a href="#" onclick="showMentions(); return false;">Mentions légales</a>
+                    <a href="#" onclick="showMentions(); return false;">Legal Notice</a>
                     <span style="margin: 0 0.5rem;">|</span>
                     <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap Contributors</a>
                 </p>
@@ -972,81 +940,81 @@
         </div>
     </footer>
 
-    <!-- Modal Mentions Légales -->
+    <!-- Modal Legal Notice -->
     <div id="mentionsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Mentions légales</h2>
+                <h2>Legal Notice</h2>
                 <button class="close-modal" onclick="closeMentions()">&times;</button>
             </div>
             <div class="modal-body">
-                <h3>Éditeur</h3>
+                <h3>Publisher</h3>
                 <p>
                     Mapikids<br>
-                    Application mobile et site web édités par un particulier
+                    Mobile app and website published by an individual
                 </p>
 
-                <h3>Hébergement</h3>
+                <h3>Hosting</h3>
                 <p>
-                    Site web hébergé par GitHub Pages<br>
+                    Website hosted by GitHub Pages<br>
                     GitHub, Inc.<br>
                     88 Colin P Kelly Jr St<br>
                     San Francisco, CA 94107<br>
-                    États-Unis
+                    United States
                 </p>
 
-                <h3>Données cartographiques - Attribution</h3>
+                <h3>Map Data - Attribution</h3>
                 <p>
-                    © Contributeurs OpenStreetMap<br>
-                    Les données des aires de jeux proviennent d'OpenStreetMap®,<br>
-                    disponibles sous la licence Open Database License (ODbL)<br>
-                    par la Fondation OpenStreetMap (OSMF).<br>
+                    © OpenStreetMap Contributors<br>
+                    Playground data comes from OpenStreetMap®,<br>
+                    available under the Open Database License (ODbL)<br>
+                    by the OpenStreetMap Foundation (OSMF).<br>
                     <br>
-                    Plus d'informations sur :<br>
+                    More information:<br>
                     • <a href="https://www.openstreetmap.org/copyright" target="_blank">www.openstreetmap.org/copyright</a><br>
                     • <a href="https://www.opendatacommons.org/licenses/odbl" target="_blank">www.opendatacommons.org/licenses/odbl</a>
                 </p>
 
-                <h3>Conditions d'utilisation</h3>
+                <h3>Terms of Use</h3>
                 <p>
-                    <strong>Contenu généré par les utilisateurs :</strong><br>
-                    • En soumettant des photos ou informations, vous accordez à Mapikids<br>
-                    une licence non-exclusive pour les utiliser dans l'application<br>
-                    • Vous garantissez détenir les droits sur le contenu soumis<br>
-                    • Mapikids se réserve le droit de modérer, modifier ou supprimer<br>
-                    tout contenu inapproprié, illégal ou non conforme<br>
+                    <strong>User-generated content:</strong><br>
+                    • By submitting photos or information, you grant Mapikids<br>
+                    a non-exclusive license to use them in the app<br>
+                    • You warrant that you hold the rights to submitted content<br>
+                    • Mapikids reserves the right to moderate, modify or delete<br>
+                    any inappropriate, illegal or non-compliant content<br>
                     <br>
-                    <strong>Utilisation de l'application :</strong><br>
-                    • L'utilisation est gratuite et sans inscription<br>
-                    • Les utilisateurs s'engagent à respecter les autres utilisateurs<br>
-                    • Toute utilisation abusive peut entraîner un blocage
+                    <strong>App usage:</strong><br>
+                    • Usage is free and requires no registration<br>
+                    • Users agree to respect other users<br>
+                    • Abusive use may result in blocking
                 </p>
 
-                <h3>Protection des données</h3>
+                <h3>Privacy</h3>
                 <p>
-                    L'application Mapikids respecte votre vie privée :<br>
-                    • Aucune inscription requise<br>
-                    • Aucune donnée personnelle collectée<br>
-                    • La géolocalisation reste sur votre appareil<br>
-                    • Les photos sont hébergées de manière anonyme<br>
-                    • Aucun cookie de tracking sur le site web
+                    Mapikids respects your privacy:<br>
+                    • No registration required<br>
+                    • No personal data collected<br>
+                    • Geolocation stays on your device<br>
+                    • Photos are hosted anonymously<br>
+                    • No tracking cookies on the website
                 </p>
 
-                <h3>Propriété intellectuelle</h3>
+                <h3>Intellectual Property</h3>
                 <p>
-                    L'ensemble du contenu de l'application Mapikids (logo, design, interface)<br>
-                    est protégé par le droit d'auteur. Toute reproduction est interdite sans autorisation.<br>
-                    Les marques et logos tiers restent la propriété de leurs détenteurs respectifs.
+                    All content of the Mapikids app (logo, design, interface)<br>
+                    is protected by copyright. Any reproduction is prohibited without authorization.<br>
+                    Third-party brands and logos remain the property of their respective holders.
                 </p>
 
-                <h3>Responsabilité</h3>
+                <h3>Liability</h3>
                 <p>
-                    Les informations sur les aires de jeux sont fournies à titre indicatif.<br>
-                    Mapikids ne peut garantir l'exactitude ou l'exhaustivité des informations.<br>
-                    Les utilisateurs restent responsables de :<br>
-                    • Vérifier sur place l'état et la sécurité des installations<br>
-                    • Superviser leurs enfants lors de l'utilisation des aires de jeux<br>
-                    • Respecter les règlements et horaires des aires de jeux
+                    Playground information is provided for informational purposes.<br>
+                    Mapikids cannot guarantee the accuracy or completeness of information.<br>
+                    Users remain responsible for:<br>
+                    • Checking on-site the condition and safety of facilities<br>
+                    • Supervising their children when using playgrounds<br>
+                    • Respecting playground rules and opening hours
                 </p>
             </div>
         </div>
@@ -1127,15 +1095,15 @@
         function initScreenshotCarousel() {
             const images = document.querySelectorAll('.screenshot-carousel img');
             let currentIndex = 0;
-            
+
             if (images.length > 1) {
                 setInterval(() => {
                     // Remove active class from current image
                     images[currentIndex].classList.remove('active');
-                    
+
                     // Move to next image
                     currentIndex = (currentIndex + 1) % images.length;
-                    
+
                     // Add active class to new image
                     images[currentIndex].classList.add('active');
                 }, 4000); // Change every 4 seconds
