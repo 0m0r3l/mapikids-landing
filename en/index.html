@@ -1021,6 +1021,17 @@
     </div>
 
     <script>
+        // Save language preference when user clicks language buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const lang = this.textContent.toLowerCase();
+                    localStorage.setItem('mapikids-lang', lang);
+                });
+            });
+        });
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

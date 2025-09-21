@@ -1,0 +1,12 @@
+{
+  "name": "mapikids-website",
+  "version": "1.0.0",
+  "description": "Site web Mapikids avec architecture modulaire",
+  "scripts": {
+    "build": "node build-simple.js",
+    "clean": "rm -rf dist/*"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

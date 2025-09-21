@@ -1,0 +1,23 @@
+{
+  "index.html": {
+    "title": "L'application qui localise les aires de jeux pour vos enfants",
+    "description": "Plus de 40 000 aires référencées partout en France. Trouvez instantanément une aire de jeux près de chez vous, découvrez ses équipements et contribuez à enrichir cette base de données collaborative.",
+    "ogImage": "https://mapikids.app/og-image.png",
+    "template": "base.html",
+    "content": "home-content.html"
+  },
+  "stats.html": {
+    "title": "Statistiques en temps réel • {{TOTAL_PLAYGROUNDS}} aires de jeux",
+    "description": "Découvrez l'activité de la communauté Mapikids : {{TOTAL_PLAYGROUNDS}} aires de jeux, {{TOTAL_PHOTOS}} photos partagées, {{TOTAL_ENRICHED}} aires enrichies. Mis à jour le {{LAST_UPDATE}}.",
+    "ogImage": "https://mapikids.app/stats-og.png",
+    "template": "base.html",
+    "content": "stats-content.html"
+  },
+  "app/index.html": {
+    "title": "Application Web Mapikids • Trouvez des aires de jeux",
+    "description": "Version web de l'application Mapikids. Localisez des aires de jeux partout en France directement dans votre navigateur, sans téléchargement.",
+    "ogImage": "https://mapikids.app/app-og.png",
+    "template": "spa.html",
+    "content": "app-content.html"
+  }
+}

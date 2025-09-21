@@ -1053,6 +1053,37 @@
     </div>
 
     <script>
+        // Auto-detect language and redirect if needed
+        (function() {
+            // Only redirect if we're on the root page without language preference
+            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                // Check if user has a saved language preference
+                const savedLang = localStorage.getItem('mapikids-lang');
+
+                if (!savedLang) {
+                    // Get browser language
+                    const browserLang = navigator.language || navigator.userLanguage;
+
+                    // If browser is in English, redirect to English version
+                    if (browserLang.startsWith('en')) {
+                        window.location.href = '/en/';
+                    }
+                    // French and other languages stay on French version (default)
+                }
+            }
+
+            // Save language preference when user clicks language buttons
+            document.addEventListener('DOMContentLoaded', function() {
+                const langBtns = document.querySelectorAll('.lang-btn');
+                langBtns.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const lang = this.textContent.toLowerCase();
+                        localStorage.setItem('mapikids-lang', lang);
+                    });
+                });
+            });
+        })();
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

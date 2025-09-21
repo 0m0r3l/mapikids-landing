@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {{HEAD_SEO}}
+    
+    <!-- Scripts pour SPA -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    {{EXTERNAL_SCRIPTS}}
+    
+    <style>
+        {{GLOBAL_STYLES}}
+        {{SPA_STYLES}}
+    </style>
+</head>
+<body>
+    {{NAV_COMPONENT}}
+    {{DECORATIONS_COMPONENT}}
+
+    <!-- Root pour React/Vue -->
+    <div id="app"></div>
+
+    {{FOOTER_COMPONENT}}
+    {{MODAL_MENTIONS}}
+
+    <!-- Scripts SPA -->
+    {{SPA_SCRIPTS}}
+</body>
+</html>
